@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function registerUser(){
+            const thisForm = document.getElementById('myForm');
+        thisForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(thisForm).entries()
+            const response = await fetch('http://localhost:5000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData))
+            });
+
+            const result = await response.json();
+            console.log(result)
+        });
+        }
+       
+    </script>
+</head>
+<body>
+    <form id="myForm">
+        <label for="myName">Send me your name:</label>
+        <input id="myName" name="name" >
+        <br>
+        <label for="userId">email</label>
+        <input id="userId" name="email" type="email" >
+        <br>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password">
+        <br>
+        <input onclick="registerUser()" id="postSubmit" type="submit" value="Send Me!">
+    </form>
+</body>
+</html>
